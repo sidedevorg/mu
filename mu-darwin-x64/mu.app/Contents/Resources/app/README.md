@@ -1,2 +1,0 @@
-# mu
-mu - mac utilities
