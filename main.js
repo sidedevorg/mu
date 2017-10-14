@@ -1,15 +1,17 @@
 const { app, Tray, Menu } = require('electron')
-
-/* =============================================================================
-MU - MAC UTILITIES APP
-============================================================================= */
-
+const AutoLaunch = require('auto-launch');
 const shell = require('shelljs');
-shell.config.execPath = '/usr/local/bin/node';
 
 let locale = 'en';
 let allFiles = null;
+let launcher = false;
 
+var muAutoLauncher = new AutoLaunch({
+  name: 'mu',
+  path: '/Applications/mu.app',
+});
+
+shell.config.execPath = '/usr/local/bin/node';
 app.dock.hide();
 
 /**
@@ -17,10 +19,16 @@ app.dock.hide();
  */
 app.on('ready', function() {
 
-  locale = app.getLocale();
-  allFiles = showAllFiles();
+  muAutoLauncher.isEnabled().then(function(isEnabled) {
+    if (isEnabled) {
+        launcher = true;
+    }
 
-  setMenu();
+    locale = app.getLocale();
+    allFiles = showAllFiles();
+    setMenu();
+
+  });
 
 });
 
@@ -47,10 +55,18 @@ function setMenu() {
   tray = new Tray(__dirname + '/mu.png')
 
   const contextMenu = Menu.buildFromTemplate([
-    {label: 'Show hidden files', type: 'checkbox', checked: allFiles, click (item, focusedWindow) {
+    {label: 'Show hidden files', type: 'checkbox', checked: allFiles, click (item) {
       shell.exec('defaults write com.apple.finder AppleShowAllFiles '+ item.checked +' && KillAll Finder',
         { async:false, silent:true}
       );
+    }},
+    {type: 'separator'},
+    {label: 'Start app on system startup', type: 'checkbox', checked: launcher, click(item) {
+      if (item.checked) {
+        muAutoLauncher.enable();
+      } else {
+        muAutoLauncher.disable();
+      }
     }},
     {type: 'separator'},
     {label: 'Quit', click (item, focusedWindow) {
