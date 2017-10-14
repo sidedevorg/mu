@@ -23,6 +23,8 @@ shell.config.execPath = '/usr/local/bin/node';
 let locale = 'en';
 let allFiles = null;
 
+app.dock.hide();
+
 /**
  * App is ready ... init!
  */
