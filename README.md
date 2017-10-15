@@ -2,7 +2,7 @@
 
 mu - mac utilities
 
-## Instalation
+## Installation
 
 Download [last version](https://github.com/sidedevorg/mu/raw/master/mu-darwin-x64/mu.dmg) of mu.dmg, mount and move mu.app to **/Applications** folder.
 
