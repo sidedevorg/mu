@@ -1,0 +1,15 @@
+{
+  "title": "mu - mac utilities",
+  "icon": "mu.icns",
+  "background-color": "#263238",
+  "window": {
+    "size": {
+        "width" : 500,
+        "height": 250
+    }
+  },
+  "contents": [
+    { "x": 340, "y": 120, "type": "link", "path": "/Applications" },
+    { "x": 120, "y": 120, "type": "file", "path": "bin/mu-darwin-x64/mu.app" }
+  ]
+}
