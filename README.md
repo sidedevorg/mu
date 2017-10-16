@@ -4,7 +4,7 @@ mu - mac utilities
 
 ## Installation
 
-Download [last version](https://github.com/sidedevorg/mu/raw/master/mu-darwin-x64/mu.dmg) of mu.dmg, mount and move mu.app to **/Applications** folder.
+Download [last version](https://github.com/sidedevorg/mu/raw/master/bin/mu-darwin-x64/mu.dmg) of mu.dmg, mount and move mu.app to **/Applications** folder.
 
 ## Run and build from source
 
@@ -32,7 +32,7 @@ Exec build script on root folder:
 sh build.sh
 ```
 
-mu.dmg is generate on **mu-darwin-x64/mu.dmg** route.
+mu.dmg is generate on **bin/mu-darwin-x64/mu.dmg** route.
 
 
 
