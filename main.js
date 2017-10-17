@@ -52,7 +52,7 @@ function showAllFiles() {
  */
 function setMenu() {
 
-  tray = new Tray(__dirname + '/mu.png')
+  tray = new Tray(__dirname + '/muTemplate.png')
 
   const contextMenu = Menu.buildFromTemplate([
     {label: 'Show hidden files', type: 'checkbox', checked: allFiles, click (item) {
