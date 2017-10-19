@@ -1,5 +1,7 @@
 # mu
 
+![mu - mac utilities](https://raw.githubusercontent.com/sidedevorg/mu/master/muTemplate32x32%402x.png)
+
 mu - mac utilities
 
 ## Installation
