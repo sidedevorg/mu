@@ -1,17 +1,12 @@
 const { app, Tray, Menu } = require('electron')
-const AutoLaunch = require('auto-launch');
-const shell = require('shelljs');
+const HiddenFiles = require('./src/hiddenFiles');
+const Launcher = require('./src/launcher');
 
 let locale = 'en';
-let allFiles = null;
-let launcher = false;
+let launcherState = false;
+let muLauncher = new Launcher();
+let hFiles = new HiddenFiles();
 
-var muAutoLauncher = new AutoLaunch({
-  name: 'mu',
-  path: '/Applications/mu.app',
-});
-
-shell.config.execPath = '/usr/local/bin/node';
 app.dock.hide();
 
 /**
@@ -19,33 +14,15 @@ app.dock.hide();
  */
 app.on('ready', function() {
 
-  muAutoLauncher.isEnabled().then(function(isEnabled) {
-    if (isEnabled) {
-        launcher = true;
-    }
+  muLauncher.isEnabled().then(function(isEnabled) {
 
+    launcherState = isEnabled;
     locale = app.getLocale();
-    allFiles = showAllFiles();
     setMenu();
 
   });
 
 });
-
-/**
- * showAllFiles
- */
-function showAllFiles() {
-
-  var process = shell.exec('defaults read com.apple.finder AppleShowAllFiles',
-    { async:false, silent:true}
-  ).stdout;
-
-  if (process == 'false\n') {
-    return false;
-  }
-  return true;
-}
 
 /**
  * Set menu application
@@ -55,21 +32,15 @@ function setMenu() {
   tray = new Tray(__dirname + '/muTemplate.png')
 
   const contextMenu = Menu.buildFromTemplate([
-    {label: 'Show hidden files', type: 'checkbox', checked: allFiles, click (item) {
-      shell.exec('defaults write com.apple.finder AppleShowAllFiles '+ item.checked +' && KillAll Finder',
-        { async:false, silent:true}
-      );
+    {label: 'Show hidden files', type: 'checkbox', checked: hFiles.readState(), click (item) {
+      hFiles.setState(item.checked);
     }},
     {type: 'separator'},
-    {label: 'Start app on system startup', type: 'checkbox', checked: launcher, click(item) {
-      if (item.checked) {
-        muAutoLauncher.enable();
-      } else {
-        muAutoLauncher.disable();
-      }
+    {label: 'Start app on system startup', type: 'checkbox', checked: launcherState, click(item) {
+      muLauncher.setState(item.checked)
     }},
     {type: 'separator'},
-    {label: 'Quit', click (item, focusedWindow) {
+    {label: 'Quit', click () {
       app.quit();
     }}
   ]);
