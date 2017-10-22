@@ -1,8 +1,11 @@
 const shell = require('shelljs');
+const Str = require('./str');
 
 function hiddenFiles() {
 
   shell.config.execPath = '/usr/local/bin/node';
+
+  this.str = new Str();
 
   this.readState = function() {
 
@@ -10,7 +13,7 @@ function hiddenFiles() {
       { async:false, silent:true }
     ).stdout;
 
-    if (process == 'false\n') {
+    if (this.str.clean(process) == 'false') {
       return false;
     }
     return true;
