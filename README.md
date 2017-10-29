@@ -2,6 +2,8 @@
 
 ![mu - mac utilities](https://raw.githubusercontent.com/sidedevorg/mu/master/muTemplate32x32%402x.png)
 
+[![GitHub license](https://img.shields.io/github/license/sidedevorg/mu.svg)](https://github.com/sidedevorg/mu/blob/master/LICENSE)
+
 ## Installation
 
 Download [last version](https://github.com/sidedevorg/mu/raw/master/bin/mu-darwin-x64/mu.dmg) of mu.dmg, mount and move mu.app to **/Applications** folder.
