@@ -1,5 +1,6 @@
 const { app, Tray, Menu } = require('electron')
 const HiddenFiles = require('./src/hiddenFiles');
+const DesktopIcons = require('./src/desktopIcons');
 const Launcher = require('./src/launcher');
 const ScreenCapture = require('./src/screenCapture');
 const IpService = require('./src/ip');
@@ -8,6 +9,7 @@ let locale = 'en';
 let launcherState = false;
 let muLauncher = new Launcher();
 let hFiles = new HiddenFiles();
+let desckIcons = new DesktopIcons();
 let muScreenCapture = new ScreenCapture();
 let ip = new IpService();
 
@@ -38,6 +40,9 @@ function setMenu() {
   const contextMenu = Menu.buildFromTemplate([
     {label: 'Show hidden files', type: 'checkbox', checked: hFiles.readState(), click (item) {
       hFiles.setState(item.checked);
+    }},
+    {label: 'Show desktop icons', type: 'checkbox', checked: desckIcons.readState(), click (item) {
+      desckIcons.setState(item.checked);
     }},
     {type: 'separator'},
     {label: 'Save screenshots as', submenu: [
